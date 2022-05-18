@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html>
+  <head> 
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Admin Altas Montañas</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="all,follow">
+    <!-- Bootstrap CSS-->
+    <link rel="stylesheet" href="vendor/bootstrap/css/bootstrap.min.css">
+    <!-- Font Awesome CSS-->
+    <link rel="stylesheet" href="vendor/font-awesome/css/font-awesome.min.css">
+    <!-- Custom Font Icons CSS-->
+    <link rel="stylesheet" href="css/font.css">
+    <!-- Google fonts - Muli-->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Muli:300,400,700">
+    <!-- theme stylesheet-->
+    <link rel="stylesheet" href="css/style.default.css" id="theme-stylesheet">
+    <!-- Custom stylesheet - for your changes-->
+    <link rel="stylesheet" href="css/custom.css">
+    <!-- Favicon-->
+    <link rel="shortcut icon" href="img/favicon.ico">
+    <!-- Tweaks for older IEs--><!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+        <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
+
+    <script src="js/angularjs/angular.min.js"></script>
+    <script src="js/angularjs/angular-route.min.js"></script>
+    <script src="js/angularjs/angular-resource.min.js"></script> 
+
+    <link href="js/tabulator/dist/css/tabulator.css" rel="stylesheet">
+    <script type="text/javascript" src="js/tabulator/dist/js/tabulator.js"></script>
+
+    <script type="text/javascript" src="https://oss.sheetjs.com/sheetjs/xlsx.full.min.js"></script>
+
+  </head>
+  <body id="content" ng-app="hr" ng-controller="hrController as hr1" data-ng-init="init()">
+    <header class="header">   
+      <nav class="navbar navbar-expand-lg">
+<!--         <div class="search-panel">
+          <div class="search-inner d-flex align-items-center justify-content-center">
+            <div class="close-btn">Close <i class="fa fa-close"></i></div>
+            <form id="searchForm" action="#">
+              <div class="form-group">
+                <input type="search" name="search" placeholder="What are you searching for...">
+                <button type="submit" class="submit">Search</button>
+              </div>
+            </form>
+          </div>
+        </div> -->
+        <div class="container-fluid d-flex align-items-center justify-content-between">
+          <div class="navbar-header">
+            <!-- Navbar Header--><a href="index.html" class="navbar-brand">
+              <div class="brand-text brand-big visible text-uppercase"><strong class="text-primary">Altas</strong><strong>Montañas</strong></div>
+              <div class="brand-text brand-sm"><strong class="text-primary">A</strong><strong>M</strong></div></a>
+            <!-- Sidebar Toggle Btn-->
+            <button class="sidebar-toggle"><i class="fa fa-long-arrow-left"></i></button>
+          </div>
+
+        </div>
+      </nav>
+    </header>
+    <div class="d-flex align-items-stretch">
+      <!-- Sidebar Navigation-->
+      <nav id="sidebar">
+        <!-- Sidebar Header-->
+        <div class="sidebar-header d-flex align-items-center">
+          <div class="avatar"><img src="#" alt="..." class="img-fluid rounded-circle"></div>
+          <div class="title">
+            <h1 class="h5">{{hr1.fullname}}</h1>
+            <p>Usuario</p>
+          </div>
+        </div>
+        <!-- Sidebar Navidation Menus--><span class="heading">Main</span>
+        <ul class="list-unstyled">
+          <li><a ng-click="load1()"> <i class="icon-home"></i>Home </a></li>
+          <li><a ng-click="load2()"> <i class="icon-grid"></i>Productores </a></li>
+          <li><a ng-click="load3()"> <i class="fa fa-bar-chart"></i>Tablas </a></li>
+          <li><a ng-click="load4()"> <i class="icon-padnote"></i>Diario </a></li>
+          <li class="active"><a ng-click="#"> <i class="icon-list-1"></i>Concentrado </a></li>
+          <li><a ng-click="load5()"> <i class="icon-log-out-1"></i>Sin relacionar </a></li>
+<!--           <li><a href="#exampledropdownDropdown" aria-expanded="false" data-toggle="collapse"> <i class="icon-windows"></i>Example dropdown </a>
+            <ul id="exampledropdownDropdown" class="collapse list-unstyled ">
+              <li><a href="#">Page</a></li>
+              <li><a href="#">Page</a></li>
+              <li><a href="#">Page</a></li>
+            </ul>
+          </li> -->
+          <li><a href="index.html"> <i class="icon-logout"></i>Cerrar sesion </a></li>
+        </ul>
+      </nav>
+      <!-- Sidebar Navigation end-->
+      <div class="page-content">
+        <div class="page-header">
+          <div class="container-fluid">
+            <h2 class="h5 no-margin-bottom">Dashboard</h2>
+          </div>
+        </div>
+        <section class="no-padding-top no-padding-bottom">
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-md-3 col-sm-6">
+                <div class="statistic-block block">
+                  <div class="progress-details d-flex align-items-end justify-content-between">
+                    <div class="title">
+                      <div class="icon"><i class="icon-user-1"></i></div><strong>Productores</strong>
+                    </div>
+                    <div class="number dashtext-1">{{hr1.producers}}</div>
+                  </div>
+<!--                   <div class="progress progress-template">
+                    <div role="progressbar" style="width: 30%" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100" class="progress-bar progress-bar-template dashbg-1"></div>
+                  </div> -->
+                </div>
+              </div>
+              <div class="col-md-3 col-sm-6">
+                <div class="statistic-block block">
+                  <div class="progress-details d-flex align-items-end justify-content-between">
+                    <div class="title">
+                      <div class="icon"><i class="icon-contract"></i></div><strong>Tablas</strong>
+                    </div>
+                    <div class="number dashtext-2">{{hr1.tables}}</div>
+                  </div>
+<!--                   <div class="progress progress-template">
+                    <div role="progressbar" style="width: 70%" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" class="progress-bar progress-bar-template dashbg-2"></div>
+                  </div> -->
+                </div>
+              </div>
+              <div class="col-md-3 col-sm-6">
+                <div class="statistic-block block">
+                  <div class="progress-details d-flex align-items-end justify-content-between">
+                    <div class="title">
+                      <div class="icon"><i class="icon-paper-and-pencil"></i></div><strong>Movimientos al dia</strong>
+                    </div>
+                    <div class="number dashtext-3">{{hr1.moves}}</div>
+                  </div>
+<!--                   <div class="progress progress-template">
+                    <div role="progressbar" style="width: 55%" aria-valuenow="55" aria-valuemin="0" aria-valuemax="100" class="progress-bar progress-bar-template dashbg-3"></div>
+                  </div> -->
+                </div>
+              </div>
+<!--               <div class="col-md-3 col-sm-6">
+                <div class="statistic-block block">
+                  <div class="progress-details d-flex align-items-end justify-content-between">
+                    <div class="title">
+                      <div class="icon"><i class="icon-writing-whiteboard"></i></div><strong>All Projects</strong>
+                    </div>
+                    <div class="number dashtext-4">41</div>
+                  </div>
+                  <div class="progress progress-template">
+                    <div role="progressbar" style="width: 35%" aria-valuenow="35" aria-valuemin="0" aria-valuemax="100" class="progress-bar progress-bar-template dashbg-4"></div>
+                  </div>
+                </div>
+              </div> -->
+            </div>
+          </div>
+        </section>
+        <section class="no-padding-top">
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-lg-12">
+                <div class="block">
+                  <div class="title"><strong>Contenedor data Concentrado</strong></div>
+                  <div class="block-body">
+                    <form class="form-horizontal">
+
+                        <div>
+                          <select id="filter-field">
+                            <option value="dout">Salida</option>                       
+                            <!-- <option value="function">Drives & Rating < 3</option> -->
+                          </select>
+
+                          <select id="filter-type">
+                            <option value="=">=</option>
+                            <option value="<"><</option>
+                            <option value="<="><=</option>
+                            <option value=">">></option>
+                            <option value=">=">>=</option>
+                            <option value="!=">!=</option>
+                            <option value="like">like</option>
+                          </select>
+
+                          <input id="filter-value" type="text" placeholder="Valor para Filtrar desde">
+
+                          <input id="filter-value1" type="text" placeholder="Valor para Filtrar hasta">
+
+                          <button id="filter-clear" ng-click="clearfilter()">Quitar Filtro</button>
+
+                          <button id="filter-apply" ng-click="applyfilter()">Aplicar Filtro</button>
+                        </div>
+
+
+                          <div>
+                              <button id="download-xlsx">Bajar Formato Excel</button>
+                          </div>
+
+                          <div id="movements"></div>
+                    </form>
+                  </div>                      
+                </div>
+              </div>  
+            </div>
+          </div>  
+        </section>
+        
+
+        <footer class="footer">
+          <div class="footer__block block no-margin-bottom">
+            <div class="container-fluid text-center">
+              <!-- Please do not remove the backlink to us unless you support us at https://bootstrapious.com/donate. It is part of the license conditions. Thank you for understanding :)-->
+              <p class="no-margin-bottom">2022 &copy; Ingenio El Carmen SA de CV. Design by <a href="#">Informatica</a>.</p>
+            </div>
+          </div>
+        </footer>
+      </div>
+    </div>
+
+                            <!-- Modal-->
+                        <div id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" class="modal fade text-left">
+                          <div role="document" class="modal-dialog">
+                            <div class="modal-content">
+                              <div class="modal-header"><strong id="exampleModalLabel" class="modal-title">Detalle movimiento {{hr1.dout}}, Productor {{hr1.keyhm}} - {{hr1.producer}}</strong>
+                                <button type="button" data-dismiss="modal" aria-label="Close" class="close"><span aria-hidden="true">×</span></button>
+                              </div>
+                              <div class="modal-body">
+                                <p>Tickets relacionados</p>
+                                <form >
+                                  <div>
+                                    <button id="download-xlsx1">Bajar Formato Excel</button>
+                                  </div>
+                                  <div id="details"></div>
+                                </form>
+                              </div>
+                              <div class="modal-footer">
+                                <div class="table-responsive"> 
+                                  <table class="table">
+                                    <thead>
+                                      <tr>
+                                        <th>#</th>
+                                        <th>Total Neto</th>
+                                        <th>Total Descto</th>
+                                        <th>Total Liquido</th>
+                                      </tr>
+                                    </thead>
+                                    <tbody>
+                                      <tr>
+                                        <th>               </th>
+                                        <td>{{hr1.tneto}}</td>
+                                        <td>{{hr1.tdescto}}</td>
+                                        <td>{{hr1.tliquido}}</td>
+                                      </tr>
+                                    </tbody>
+                                  </table>
+                                </div>
+                                <button type="button" data-dismiss="modal" class="btn btn-secondary">Cerrar</button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>   
+
+    <!-- JavaScript files-->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/popper.js/umd/popper.min.js"> </script>
+    <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+    <script src="vendor/jquery.cookie/jquery.cookie.js"> </script>
+    <script src="vendor/chart.js/Chart.min.js"></script>
+    <script src="vendor/jquery-validation/jquery.validate.min.js"></script>
+    <script src="js/charts-home.js"></script>
+    <script src="js/front.js"></script>
+
+    <!-- bootbox App -->
+    <script src="js/bootbox/bootbox.min.js"></script>
+    <script src="js/bootbox/bootbox.locales.min.js"></script>
+
+    <script src="js/moment/moment.js"></script>
+
+    <script src="js/concen.js"></script>
+
+  </body>
+</html>
