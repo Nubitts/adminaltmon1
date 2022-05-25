@@ -360,8 +360,24 @@ var dateEditor = function(cell, onRendered, success, cancel){
         {column:"idproducer", dir:"asc"},
     ],
     columns:[                 //define the table columns
-        {title:"Id", field: "idproducer"},
-        {title: "Clave", field: "key_hm"},
+      {
+        title: "Id", field: "idproducer", cellClick: function (e, cell) {
+
+          var key_hm = cell._cell.row.data.key_hm
+
+          angular.element(document.getElementById('content')).scope().detailsm(key_hm);
+          $('#myModal1').modal('show');
+          
+        },},
+        {title: "Clave", field: "key_hm", editor:"input", validator:"required", cellEdited:function(cell){
+
+          var IdProd = cell._cell.row.data.idproducer
+          var NwName = cell._cell.value
+          var OlName = cell._cell.oldValue
+
+          angular.element(document.getElementById('Content')).scope().updatefield("Key_Hm",NwName,OlName,IdProd);
+
+        },},
         {title: "Nombre", field: "name_", editor:"input", validator:"required", cellEdited:function(cell){
 
           var IdProd = cell._cell.row.data.idproducer
@@ -398,12 +414,11 @@ var dateEditor = function(cell, onRendered, success, cancel){
     ],  
   });
    
-   table.on("rowClick", function(e, row){
-    // alert("Row " + row.getIndex() + " Clicked!!!!")
+/*    table.on("rowClick", function(e, row){
     data = row.getData();
     angular.element(document.getElementById('content')).scope().detailsm(data.key_hm);
     $('#myModal1').modal('show');
-}); 
+  });  */
 
   //trigger download of data.xlsx file
   document.getElementById("download-xlsx").addEventListener("click", function(){

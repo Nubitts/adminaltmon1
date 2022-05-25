@@ -15,7 +15,12 @@ $Newvalue = $header1->Newvalue;
 $Oldvalue = $header1->Oldvalue;
 $IdProd = $header1->IdProd;
 
-$con->update('producers', [$Field => $Newvalue], ['idproducer' => $IdProd]);
+$db->update('producers', [$Field => $Newvalue], ['idproducer' => $IdProd]);
+
+if ($Field == 'Key_Hm') {
+  $db->update('tables_', ['KeyHm' => $Newvalue], ['KeyHm' => $Oldvalue]);
+}
+
 
 $Query = "select idproducer , key_hm, name_, MiddleName, LastName, Key_Inca, Group_,NameGroup, division, DivName, zone, status_ from producers where Status_ = 1";
 $Query1 = "";

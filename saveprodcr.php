@@ -25,7 +25,7 @@ $ralta = $db->fetchAssociative('SELECT count(*) as conteoalt FROM producers WHER
 $alta = reset($ralta);
 
 
-if ($inca > 0 && $alta == 0) {
+if ($inca >= 0 && $alta == 0) {
 
   $count = $db->executeStatement('INSERT producers (Key_Hm, Name_, MiddleName, LastName, Key_Inca, Status_, Zone) Values (?,?,?,?,?,?,?)', [$keyalt, $name, $middlename, $lastname, $keyinca, 1, 5]);
 

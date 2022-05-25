@@ -267,8 +267,8 @@ function tabla(datos) {
         {column:"key_hm", dir:"asc"},
     ],
     columns:[                 //define the table columns
-        {title: "Clave", field: "Key_Hm" },
-        {title: "Productor", field: "Producer"},
+        {title: "Clave", field: "key_hm" },
+        {title: "Productor", field: "producer"},
         {title: "Neto", field: "neto",bottomCalc:"sum", bottomCalcParams:{precision:3}},
         {title: "Descuento", field: "descto",bottomCalc:"sum", bottomCalcParams:{precision:3}},
         {title: "Liquido", field: "liquido",bottomCalc:"sum", bottomCalcParams:{precision:3} },
