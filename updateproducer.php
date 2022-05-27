@@ -27,7 +27,7 @@ $Query1 = "";
 
 $statement = $db->prepare($Query);
 $resultSet = $statement->execute();
-$exis = $resultSet->fetchAllAssociative();
+$exis = $resultSet->fetchAllAssociative(); 
 
 $count = count($exis);
 
